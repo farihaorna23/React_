@@ -8,22 +8,32 @@ class App extends Component {
       list: ["ready", "set", "GO"],
       text: ""
     };
+
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   handleInput = event => {
     this.setState({ text: event.target.value });
   };
+
+  onSubmit(event) {
+    event.preventDefault();
+    this.setState({ list: [...this.state.list, this.state.text], text: "" });
+  }
   render() {
     return (
       <div>
         <h1>Hello World</h1>
-        <input
-          type="text"
-          name="text"
-          id="text"
-          value={this.state.text}
-          onChange={this.handleInput}
-        />
+        <form onSubmit={this.onSubmit}>
+          <input
+            type="text"
+            name="text"
+            id="text"
+            value={this.state.text}
+            onChange={this.handleInput}
+          />
+          <button type="submit">Add</button>
+        </form>
         <ul>
           {this.state.list.map((word, indx) => {
             return <li key={word + indx}>{word}</li>;
