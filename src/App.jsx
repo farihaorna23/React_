@@ -2,7 +2,8 @@ import { Component } from "react";
 import "./App.css";
 
 class App extends Component {
-  constructor() {
+  constructor(props) {
+    super(props);
     this.state = {
       list: ["ready", "set", "GO"],
       text: ""
@@ -12,6 +13,11 @@ class App extends Component {
     return (
       <div>
         <h1>Hello World</h1>
+        <ul>
+          {this.state.list.map((word, indx) => {
+            return <li key={word + indx}>{word}</li>;
+          })}
+        </ul>
       </div>
     );
   }
