@@ -17,7 +17,13 @@ class App extends Component {
     return (
       <div>
         <h1>Hello World</h1>
-        <input value={this.state.text} onChange={this.handleInput}></input>
+        <input
+          type="text"
+          name="text"
+          id="text"
+          value={this.state.text}
+          onChange={this.handleInput}
+        />
         <ul>
           {this.state.list.map((word, indx) => {
             return <li key={word + indx}>{word}</li>;
