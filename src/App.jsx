@@ -9,10 +9,15 @@ class App extends Component {
       text: ""
     };
   }
+
+  handleInput = event => {
+    this.setState({ text: event.target.value });
+  };
   render() {
     return (
       <div>
         <h1>Hello World</h1>
+        <input value={this.state.text} onChange={this.handleInput}></input>
         <ul>
           {this.state.list.map((word, indx) => {
             return <li key={word + indx}>{word}</li>;
