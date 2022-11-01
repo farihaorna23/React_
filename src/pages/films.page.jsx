@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
-import { filterFilmsByDirector, getListOf } from "../helpers/film.helpers";
+import { Link } from "react-router-dom";
+import {
+  filterFilmsByDirector,
+  getListOf,
+  getFilmStats
+} from "../helpers/film.helpers";
 const FilmsPage = props => {
   const [list, setList] = useState([]);
   const [searchDirector, setSearchDirector] = useState("");
@@ -20,6 +25,7 @@ const FilmsPage = props => {
   let filmsByDirector = filterFilmsByDirector(list, searchDirector);
 
   let directors = getListOf(list, "director");
+  const { avg_score, total, latest } = getFilmStats(filmsByDirector);
 
   return (
     <div>
@@ -42,9 +48,28 @@ const FilmsPage = props => {
       </form>
       <ul>
         {filmsByDirector.map((item, indx) => {
-          return <li key={item + indx}>{item.title}</li>;
+          return (
+            <li key={item + indx}>
+              {/* when anyone goes to this link, route will see the path, it will match a route, it will render a component specifically by single film component   */}
+              <Link to={`/films/${item.id}`}>{item.title}</Link>
+            </li>
+          );
         })}
       </ul>
+      <div>
+        <div>
+          <span># Of Films</span>
+          <span>{total}</span>
+        </div>
+        <div>
+          <span>Average Rating</span>
+          <span>{avg_score.toFixed(2)}</span>
+        </div>
+        <div>
+          <span>Latest Film</span>
+          <span>{latest}</span>
+        </div>
+      </div>
     </div>
   );
 };
